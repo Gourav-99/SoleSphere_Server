@@ -1,0 +1,13 @@
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "12", // Adjust to your target Node.js version
+            "esmodules":"true"
+          }
+        }
+      ]
+    ]
+  }
