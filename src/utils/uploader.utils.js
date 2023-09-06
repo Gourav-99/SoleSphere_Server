@@ -3,13 +3,9 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const s3 = new S3({
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY || "AKIASVVR44FB37J6VD77",
-    secretAccessKey:
-      process.env.AWS_SECRET_KEY || "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",
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
   },
-  // secretAccessKey:
-  //   process.env.AWS_SECRET_KEY || "TktT/TMQ08PlbcKH13TPHY3kLeEEr42LvB9ncGwx",
-  // accessKeyId: process.env.AWS_ACCESS_KEY || "AKIASVVR44FB37J6VD77",
   region: "ap-south-1", // region of your buck
 });
 const upload = multer({

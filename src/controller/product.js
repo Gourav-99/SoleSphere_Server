@@ -58,8 +58,39 @@ export const createProduct = async (req, res) => {
     });
   }
 };
+export const adminProduct = async (req, res) => {
+  try {
+    if (req.user.role !== 1) {
+      return res.status(404).json({
+        message: "Unauthorised to create product",
+        success: false,
+      });
+    }
+    const { id: userId } = req.user;
+    const products = await Product.find({ user: userId }).sort({
+      createdAt: -1,
+    });
+    res.status(201).json({
+      message: "Fetched Admin Products",
+      success: true,
+      data: products,
+    });
+  } catch (error) {
+    logger.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+};
 export const editProduct = async (req, res) => {
   try {
+    if (req.user.role !== 1) {
+      return res.status(404).json({
+        message: "Unauthorised to create product",
+        success: false,
+      });
+    }
     const { productId } = req.params;
     const { id: userId } = req.user;
     const product = await Product.findOne({ _id: productId, user: userId });
@@ -69,18 +100,12 @@ export const editProduct = async (req, res) => {
         success: false,
       });
     }
-    const { title, subTitle, description, price, tags, sizes, quantity } =
-      req.body;
-    let image;
-    if (req.file.location) {
-      image = req.file.location;
-      product.image = image;
-    }
+    // const { title, subTitle, description, price, tags, sizes, quantity } =
+    //   req.body;
 
     for (const field in req.body) {
-      // Check if the field exists in the Product schema
       if (field in product) {
-        product[field] = req.body[field];
+        product[field] = req.body[field] ? req.body[field] : product[field];
       }
     }
 
@@ -101,6 +126,12 @@ export const editProduct = async (req, res) => {
 
 export const removeProduct = async (req, res) => {
   try {
+    if (req.user.role !== 1) {
+      return res.status(404).json({
+        message: "Unauthorised to create product",
+        success: false,
+      });
+    }
     const { productId } = req.params;
     const { id: userId } = req.user;
     const product = await Product.findOne({ _id: productId, user: userId });
@@ -149,7 +180,7 @@ export const getProducts = async (req, res) => {
           select: "fName lName _id email bussiness",
         })
         .sort({ createdAt: -1 });
-      console.log(products);
+
       return res.status(201).json({
         message: "fetched products",
         success: true,
@@ -180,7 +211,7 @@ export const getProducts = async (req, res) => {
 export const getProduct = async (req, res) => {
   try {
     const { productId } = req.params;
-    console.log(productId);
+
     const product = await Product.findById(productId).populate({
       path: "user",
       select: "fName lName _id email bussiness",

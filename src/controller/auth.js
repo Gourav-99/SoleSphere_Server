@@ -1,6 +1,6 @@
 import { User } from "../db";
 import logger from "../logger";
-import { header, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 import { checkPass } from "../utils/auth.utils";
 import {
   generateResetToken,
@@ -9,12 +9,10 @@ import {
   verifyResetToken,
 } from "../utils/token.utils";
 import { sendEmail } from "../utils/email.utils";
-import axios from "axios";
 
 // user sign up route
 export const signUp = async (req, res) => {
   try {
-    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -119,7 +117,9 @@ export const signIn = async (req, res) => {
 export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
+
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(404).json({
         message: "User not found",
@@ -184,7 +184,7 @@ export const resetPassword = async (req, res) => {
     user.password = password;
     user.tokens = user.tokens.filter((t) => t !== token);
     await user.save();
-    // res.redirect("/signin")
+
     return res.status(201).json({
       message: "Password rest successful",
       success: true,

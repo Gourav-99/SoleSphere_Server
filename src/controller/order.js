@@ -9,7 +9,7 @@ export const myOrders = async (req, res) => {
       path: "myOrders.productId",
       model: "Product",
     });
-    console.log(myOrders);
+
     return res.status(201).json({
       message: "Orders fetched succesfully",
       success: true,

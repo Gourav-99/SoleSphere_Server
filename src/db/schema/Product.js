@@ -42,20 +42,18 @@ const ProductSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-// ProductSchema.pre("save", function (next) {
-//   // Trim tags
-//   if (this.tags && Array.isArray(this.tags)) {
-//     // this.tags = this.tags.map((tag) => tag.trim());
+ProductSchema.pre("save", function (next) {
+  // Trim tags
+  if (this.tags && Array.isArray(this.tags)) {
+    this.tags = this.tags[0].split(",").map((size) => size.trim());
+  }
 
-//     this.tags = this.tags[0].split(",").map((size) => size.trim());
-//   }
+  // Trim sizes
+  if (this.sizes && Array.isArray(this.sizes)) {
+    this.sizes = this.sizes[0].split(",").map((size) => size.trim());
+  }
 
-//   // Trim sizes
-//   if (this.sizes && Array.isArray(this.sizes)) {
-//     this.sizes = this.sizes[0].split(",").map((size) => size.trim());
-//   }
-
-//   next();
-// });
+  next();
+});
 
 export const Product = mongoose.model("Product", ProductSchema);

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  adminProduct,
   createProduct,
   editProduct,
   getProduct,
@@ -14,22 +15,24 @@ const router = Router();
 router.post(
   "/create-product",
 
-  body("title").not().isEmpty(),
-  body("description").not().isEmpty(),
-
-  body("quantity").not().isEmpty(),
   isAuthenticated,
   upload.single("image"),
+  body("title").notEmpty().withMessage("Title is required"),
+  body("description").notEmpty().withMessage("Description is required"),
+  body("price").not().notEmpty().isNumeric(),
+  body("quantity").notEmpty().isNumeric(),
+  body("sizes").notEmpty().withMessage("Sizes are required"),
   createProduct
 );
+router.get("/adminProduct", isAuthenticated, adminProduct);
 router.put(
   "/edit-product/:productId",
   isAuthenticated,
-  upload.single("image"),
+
   editProduct
 );
-router.delete("/delete-product", isAuthenticated, removeProduct);
-// for all users unprotected routes
+router.delete("/delete-product/:productId", isAuthenticated, removeProduct);
+
 router.get("/get-products", getProducts);
 router.get("/:productId", getProduct);
 

@@ -1,28 +1,50 @@
-import nodemailer from "nodemailer";
 import logger from "../logger";
 
-// Create a transporter instance
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+
+// Set up OAuth2 client
+const oAuth2Client = new google.auth.OAuth2(
+  // "YOUR_CLIENT_ID",
+  process.env.OAUTH_CLIENT_ID,
+  // "YOUR_CLIENT_SECRET",
+  process.env.OAUTH_CLIENT_SECRET,
+  // "YOUR_REDIRECT_URI"
+  process.env.OAUTH_REDIRECT_URL
+);
+
+// Set the access token
+oAuth2Client.setCredentials({
+  access_token: process.env.OAUTH_ACCESS_TOKEN,
+});
+
+// Create the transporter using OAuth2 authentication
 const transporter = nodemailer.createTransport({
-  // Configure your email service here (e.g., Gmail)
-  service: "Gmail",
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD,
+    type: "OAuth2",
+    user: "goupg1999@gmail.com",
+    clientId: process.env.OAUTH_CLIENT_ID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+    accessToken: oAuth2Client.getAccessToken(),
   },
 });
 
-// Function to send an email
 export const sendEmail = async (emailInfo) => {
-  const mailOptions = {
-    from: process.env.EMAIL_ADDRESS,
-    to: emailInfo.to,
-    subject: emailInfo.subject,
-    text: emailInfo.text,
-  };
-
   try {
+    // Compose the email
+    const mailOptions = {
+      from: "goupg1999@gmail.com",
+      to: emailInfo.to,
+      subject: emailInfo.subject,
+      text: emailInfo.text,
+    };
+
+    // Send the email
     const info = await transporter.sendMail(mailOptions);
-    logger.log("Email sent:", info.response);
+
+    logger.info("Email sent:", info.response);
     return info;
   } catch (error) {
     logger.error("Error sending email:", error);

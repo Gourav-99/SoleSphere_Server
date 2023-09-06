@@ -11,7 +11,7 @@ export const checkout = async (req, res) => {
       currency: "INR",
     };
     const razorpayOrder = await razorpayInstance.orders.create(options);
-    console.log(razorpayOrder);
+
     return res.status(201).json({
       message: "RazorPay Order created successfully",
       success: true,
@@ -33,10 +33,7 @@ export const verifyPayment = async (req, res) => {
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
-      .createHmac(
-        "sha256",
-        process.env.RAZOR_SECRET_KEY || "PvIdba6P6p1wCeT5nGIJaQSX"
-      )
+      .createHmac("sha256", process.env.RAZOR_SECRET_KEY)
       .update(body.toString())
       .digest("hex");
 
@@ -71,7 +68,6 @@ export const updateOrderQty = async (req, res) => {
     const { OrderedProducts } = req.body;
     const { id: userId } = req.user;
     const productOrders = [];
-    console.log(OrderedProducts);
     for (const productId in OrderedProducts) {
       productOrders.push({
         productId: productId,
@@ -79,8 +75,7 @@ export const updateOrderQty = async (req, res) => {
         orderedSize: OrderedProducts[productId].activeSize,
       });
     }
-    console.log(productOrders);
-    // Assuming you have a User model
+
     await User.updateOne(
       { _id: userId },
       {

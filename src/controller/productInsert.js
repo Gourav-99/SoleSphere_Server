@@ -1,11 +1,10 @@
 import fs from "fs";
 import logger from "../logger";
 import { Product, User } from "../db";
-import { log } from "console";
+
 import path from "path";
 export const createProductsFromJSON = async (req, res) => {
   try {
-    // console.log(path.resolve());
     const rawData = fs.readFileSync(
       `${path.resolve()}/product-data.json`,
       "utf-8"

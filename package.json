@@ -26,6 +26,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "googleapis": "^126.0.1",
     "jsonwebtoken": "^9.0.1",
     "mongodb-client-encryption": "^2.9.0",
     "mongoose": "^7.4.5",
