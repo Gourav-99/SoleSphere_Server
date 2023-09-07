@@ -11,7 +11,7 @@ import orderRoutes from "./routes/order";
 // import { createProductsFromJSON } from "./controller/productInsert";
 const app = express();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 connectDB();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
