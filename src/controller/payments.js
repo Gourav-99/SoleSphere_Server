@@ -51,7 +51,9 @@ export const verifyPayment = async (req, res) => {
       razorpay_signature,
     });
 
-    res.redirect(`http://localhost:3000/paymentsuccess/${razorpay_order_id}`);
+    res.redirect(
+      `${process.env.CLIENT_URL}/paymentsuccess/${razorpay_order_id}`
+    );
     res
       .status(201)
       .json({ message: "order Placed successfully", success: true });
