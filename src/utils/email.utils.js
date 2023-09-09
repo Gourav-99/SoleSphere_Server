@@ -9,7 +9,7 @@ const oAuth2Client = new google.auth.OAuth2(
   process.env.OAUTH_CLIENT_ID,
   // "YOUR_CLIENT_SECRET",
   process.env.OAUTH_CLIENT_SECRET,
-  // "YOUR_REDIRECT_URI"
+  // "YOUR_REDIRECT_URI "
   process.env.OAUTH_REDIRECT_URL
 );
 
