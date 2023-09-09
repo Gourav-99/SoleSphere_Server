@@ -52,7 +52,7 @@ export const verifyPayment = async (req, res) => {
     });
 
     res.redirect(
-      `${process.env.CLIENT_URL}/paymentsuccess/${razorpay_order_id}`
+      `https://master.d1jht0q3p077vb.amplifyapp.com/paymentsuccess/${razorpay_order_id}`
     );
     res
       .status(201)
