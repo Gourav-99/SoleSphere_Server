@@ -91,7 +91,7 @@ export const updateOrderQty = async (req, res) => {
     for (const productId in OrderedProducts) {
       const selectedQuantity = OrderedProducts[productId].selectedQuantity;
 
-      // Find and update the product quantity in the database
+      // Find and update the product quantity in the databas
       await Product.updateOne(
         { _id: productId },
         { $inc: { quantity: -selectedQuantity } } // Decrement the quantity
