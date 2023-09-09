@@ -22,7 +22,7 @@ app.use("/product", productRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/order", orderRoutes);
 // route for uploading products through json file
-// app.get("/pushdata", createProductsFromJSON)
+// app.get("/pushdata", createProductsFromJSON);
 app.post("/", (req, res) => {
   res.send("Server is running at 8080");
 });
