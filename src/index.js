@@ -30,3 +30,4 @@ app.post("/", (req, res) => {
 app.listen(PORT, () => {
   logger.info(`server is runnig at ${PORT}`);
 });
+export default app;
