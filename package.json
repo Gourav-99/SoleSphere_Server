@@ -4,8 +4,9 @@
   "description": "server code ",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack --config webpack.config.js --mode=production",
-    "dev": "node_modules/.bin/webpack --config webpack.config.js --mode=development -w "
+    // "build": "node_modules/.bin/webpack --config webpack.config.js --mode=production",
+    "dev": "node_modules/.bin/webpack --config webpack.config.js --mode=development -w ",
+    "start": "node dist/bundle.js"
   },
   "repository": {
     "type": "git",
