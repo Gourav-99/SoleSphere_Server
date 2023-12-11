@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 connectDB();
 app.use(cors({
-  origin: "https://sole-sphere-api.onrender.com",
+  origin: "https://sole-sphere.vercel.app/",
   credentials: true,
 }));
 app.use(express.urlencoded({ extended: true }));
