@@ -13,6 +13,7 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 connectDB();
+
 app.use(
   cors({
     origin: "https://sole-sphere.vercel.app",
@@ -20,6 +21,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morganMiddleware);
