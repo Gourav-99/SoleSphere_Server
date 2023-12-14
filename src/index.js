@@ -16,7 +16,8 @@ connectDB();
 
 app.use(
   cors({
-    origin: "https://sole-sphere.vercel.app",
+    
+  //  origin: "https://sole-sphere.vercel.app",
     // origin: "http://localhost:3000",
     credentials: true,
   })
