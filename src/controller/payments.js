@@ -52,7 +52,8 @@ export const verifyPayment = async (req, res) => {
     });
 
     res.redirect(
-      `https://master.d1jht0q3p077vb.amplifyapp.com/paymentsuccess/${razorpay_order_id}`
+      // `https://master.d1jht0q3p077vb.amplifyapp.com/paymentsuccess/${razorpay_order_id}`
+      `https://sole-sphere-1b2uleb7x-gourav-99s-projects.vercel.app/paymentsuccess/${razorpay_order_id}`
     );
     res
       .status(201)

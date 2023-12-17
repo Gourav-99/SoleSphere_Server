@@ -13,13 +13,12 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 connectDB();
-app.use(
-  cors({
-    origin: "https://sole-sphere.vercel.app",
-    // origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: "https://sole-sphere.vercel.app",
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morganMiddleware);
