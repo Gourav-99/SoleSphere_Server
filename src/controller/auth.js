@@ -95,13 +95,12 @@ export const signIn = async (req, res) => {
       profilePicture: user.profilePicture,
     };
     const token = await generateToken(tokenData);
-
     return res.status(201).json({
       message: "Logged in successfully",
       success: true,
       data: {
         token,
-        user,
+        user: { user, initials: user.initials },
       },
     });
   } catch (error) {
